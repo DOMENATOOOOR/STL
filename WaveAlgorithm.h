@@ -1,33 +1,25 @@
 #pragma once
 #include <map>
-#include <string>
-#include <iostream>
-#include <utility>
-#include <fstream>
 #include <queue>
-#include <sstream>
-
 
 class MyMap {
-private:
-    std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};//вверх, вниз, влево, вправо
+    const std::vector<std::pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
     std::vector<char> grid;
     int mapWeight = 0;
     int mapHeight = 0;
+    [[nodiscard]] int findHero() const;
+    [[nodiscard]] int findExit() const;
+    [[nodiscard]] bool isWalkable(int x, int y ) const;
 public:
     MyMap(const std::vector<char>& grid, int mapWeight, int mapHeight);
     MyMap(const MyMap& other);
-    int findHero() const;
-    int findExit() const;
-    int getMapWeight() const;
-    int getMapHeight() const;
-    bool isWalkable(int x, int y ) const;
+    [[nodiscard]] auto begin() const {
+        return grid.begin();
+    }
+    [[nodiscard]] auto end() const {
+        return grid.end();
+    }
+    [[nodiscard]] int getMapWeight() const;
+    [[nodiscard]] int getMapHeight() const;
     void waveAlgorithm();
-    const std::vector<char>& getGrid() const;
-};
-
-class MapReader {
-public:
-    static MyMap readMapFromFile(const std::string& filePath);
-    static void writeMapToFile(const std::string& filePath, const MyMap& Map);
 };
